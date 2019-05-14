@@ -6,213 +6,151 @@ import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 
 
-class CustomImagePicker extends StatefulWidget {
-  final String title;
-  CustomImagePicker({Key key, this.title}):super(key:key);
-  _CustomImagePickerState createState() => _CustomImagePickerState();
+class CustomImagePicker  extends StatefulWidget{
+@override
+State<StatefulWidget> createState() {
+// TODO: implement createState
+return MySelectImage();
+}
 }
 
-class _CustomImagePickerState extends State<CustomImagePicker> {
-  Future <File> _imageFile;
-  bool isVideo = false;
-  VideoPlayerController _controller;//视频播放器
-  VoidCallback listener;//闭包 or block
-
-  void _onImageButtonPressed(ImageSource source) {
+class   MySelectImage extends State{
+  List imgList=new List<File>();
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
-      if (_controller != null) {
-        _controller.setVolume(0.0);
-        _controller.removeListener(listener);
-      }
+    imgList.add(image);
+    });
+  }
 
-      if (isVideo) {
-        ImagePicker.pickVideo(source: source).then((File file){
-          if (file != null && mounted) {
-            setState(() {
-              _controller = VideoPlayerController.file(file)
-                ..addListener(listener)
-                ..setVolume(1.0)//音量
-                ..initialize()//初始化(异步)
-                ..setLooping(true)//循环播放
-                ..play();
-            });
-          }
-        });
-      } else {
-        _imageFile = ImagePicker.pickImage(source: source);
+  Future getCamera() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    setState(() {
+      if(image != null){
+        imgList.add(image);
       }
     });
   }
 
-  @override
-  void deactivate() {
-    if (_controller != null) {
-      _controller.setVolume(1.0);
-      _controller.removeListener(listener);
-    }
-    super.deactivate();
-  }
-
-  @override
-  void dispose() {
-    if (_controller != null) {
-      _controller.dispose();
-    }
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    listener = (){
-      setState(() {});
-    };
-  }
-
-
-  Widget _previewVideo(VideoPlayerController controller) {
-    if (controller == null) {
-      return const Text(
-        'You have not yet picked a video',
-        textAlign: TextAlign.center,
-      );
-    } else if (controller.value.initialized) {
-      return Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: AspectRatioVideo(controller),
-      );
+  dynamic  getBody() {
+    if (showLoadingDialog()) {
+      return getProgressDialog();
     } else {
-      return const Text(
-        'Error Loading Video',
-        textAlign: TextAlign.center,
-      );
+      return getListView();
     }
   }
 
-  Widget _previewImage() {
-    return FutureBuilder<File>(
-        future: _imageFile,
-        builder: (BuildContext context, AsyncSnapshot<File> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.data != null) {
-            return Image.file(snapshot.data);
-          } else if (snapshot.error != null) {
-            return const Text(
-              'Error picking image.',
-              textAlign: TextAlign.center,
-            );
-          } else {
-            return const Text(
-              'You have not yet picked an image.',
-              textAlign: TextAlign.center,
-            );
-          }
-        }
-    );
+  bool showLoadingDialog() {
+    if (imgList.length == 0) {
+      return true;
+    }
+
+    return false;
   }
+
+  Center getProgressDialog() {
+    return new Center(child: new CircularProgressIndicator());
+  }
+
+  ListView getListView()=>new ListView.builder(
+      itemCount: imgList.length,
+      itemBuilder: (BuildContext context, int position) {
+        return Image.file(imgList[position],height: 300);
+      }
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
-        elevation: 0.0,
+        title: Text('Image Picker Example'),
       ),
-      body: Center(
-        child: isVideo ? _previewVideo(_controller) : _previewImage(),
-      ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          //相册选取照片
-          FloatingActionButton(
-            onPressed: () {
-              isVideo = false;
-              _onImageButtonPressed(ImageSource.gallery);
-            },
-            child: const Icon(Icons.photo_library),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            //拍照
-            child: FloatingActionButton(
-              onPressed: () {
-                isVideo = false;
-                _onImageButtonPressed(ImageSource.camera);
-              },
-              child: const Icon(Icons.camera_alt),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            //'从相册选取视频'
-            child: FloatingActionButton(
-              backgroundColor: Colors.red,
-              onPressed: () {
-                isVideo = true;
-                _onImageButtonPressed(ImageSource.gallery);
-              },
-              child: const Icon(Icons.video_library),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            //视频录制
-            child: FloatingActionButton(
-              backgroundColor: Colors.red,
-              onPressed: () {
-                isVideo = true;
-                _onImageButtonPressed(ImageSource.camera);
-              },
-              child: const Icon(Icons.videocam),
-            ),
-          ),
-        ],
+      body:getBody(),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          List<String> mStrings = new List();
+          mStrings.add("相册");
+          mStrings.add("相机");
+          showMyDialogWithListView(context,mStrings);
+    },
+        tooltip: 'Pick Image',
+        child: Icon(Icons.add_box),
       ),
     );
   }
-}
+  void showMyDialogWithListView(BuildContext context,List<String> strs) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return new AlertDialog(
+            content: new Container(
+              /*
+              暂时的解决方法：要将ListView包装在具有特定宽度和高度的Container中
+              如果Container没有定义这两个属性的话，会报错，无法显示ListView
+               */
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: 100,
+              child: new ListView.builder(
+                itemBuilder: (context, index) {
+                  return new SizedBox(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: new RaisedButton(
+                      child: new Text(strs[index]),
+                      onPressed: (){
+                        if(index == 0){
+                          getImage();
+                        }else{
+                          getCamera();
+                        }
+                      },
+                    )
+                  );
+                },
+                itemCount: strs.length,
+                shrinkWrap: true,
+              ),
+            ));
+      },
+    );
 
+//如果直接将ListView放在dialog中，会报错，比如
+//下面这种写法会报错：I/flutter (10721): ══╡ EXCEPTION CAUGHT BY RENDERING LIBRARY ╞═════════════════════════════════════════════════════════
+//    I/flutter (10721): The following assertion was thrown during performLayout():
+//    I/flutter (10721): RenderShrinkWrappingViewport does not support returning intrinsic dimensions.
+//    I/flutter (10721): Calculating the intrinsic dimensions would require instantiating every child of the viewport, which
+//    I/flutter (10721): defeats the point of viewports being lazy.
+//    I/flutter (10721): If you are merely trying to shrink-wrap the viewport in the main axis direction, you should be able
+//    I/flutter (10721): to achieve that effect by just giving the viewport loose constraints, without needing to measure its
+//    I/flutter (10721): intrinsic dimensions.
+//    I/flutter (10721):
+//    I/flutter (10721): When the exception was thrown, this was the stack:
+//    I/flutter (10721): #0      RenderShrinkWrappingViewport.debugThrowIfNotCheckingIntrinsics.<anonymous closure> (package:flutter/src/rendering/viewport.dart:1544:9)
+//    I/flutter (10721): #1      RenderShrinkWrappingViewport.debugThrowIfNotCheckingIntrinsics (package:flutter/src/rendering/viewport.dart:1554:6)
+//    I/flutter (10721): #2      RenderViewportBase.computeMaxIntrinsicWidth (package:flutter/src/rendering/viewport.dart:321:12)
+//    I/flutter (10721): #3      RenderBox._computeIntrinsicDimension.<anonymous closure> (package:flutter/src/rendering/box.dart:1109:23)
+//    I/flutter (10721): #4      __InternalLinkedHashMap&_HashVMBase&MapMixin&_LinkedHashMapMixin.putIfAbsent (dart:collection/runtime/libcompact_hash.dart:277:23)
+//    I/flutter (10721): #5      RenderBox._computeIntrinsicDimension (package:flutter/src/rendering/box.dart:1107:41)
+//    I/flutter (10721): #6      RenderBox.getMaxIntrinsicWidth (package:flutter/src/rendering/box.dart:1291:12)
+//    I/flutter (10721): #7      _RenderProxyBox&RenderBox&RenderObjectWithChildMixin&RenderProxyBoxMixin.computeMaxIntrinsicWidth (package:flutter/src/rendering/proxy_box.dart:81:20)
 
-class AspectRatioVideo extends StatefulWidget {
-  final VideoPlayerController controller;
-  AspectRatioVideo(this.controller);
-  _AspectRatioVideoState createState() => _AspectRatioVideoState();
-}
-
-class _AspectRatioVideoState extends State<AspectRatioVideo> {
-  VideoPlayerController get controller => widget.controller;
-  bool initialized = false;
-  VoidCallback listener;
-
-  @override
-  void initState() {
-    super.initState();
-    listener = (){
-      if (!mounted) {
-        return;
-      }
-      if (initialized != controller.value.initialized) {
-        initialized = controller.value.initialized;
-        setState(() {});
-      }
-    };
-    controller.addListener(listener);
+//        showDialog(context: context, builder: (context) {
+//      return new AlertDialog(title: new Text("title"),
+//        content: new SingleChildScrollView(
+//          child: new Container(
+//            height: 200,
+//            child: new ListView.builder(
+//              itemBuilder: (context, index) {
+//                return new SizedBox(height: 100, child: new Text("1"),);
+//              }, itemCount: 10, shrinkWrap: true,),
+//          ),
+//        ),
+//        actions: <Widget>[
+//          new FlatButton(onPressed: () {}, child: new Text("确认"),),
+//          new FlatButton(onPressed: () {}, child: new Text("取消"),),
+//        ],);
+//    });
   }
 
-
-  @override
-  Widget build(BuildContext context) {
-    if (initialized) {
-      final Size size = controller.value.size;
-      return Center(
-        child: AspectRatio(
-          aspectRatio: size.width / size.height,
-          child: VideoPlayer(controller),
-        ),
-      );
-    } else {
-      return Container();
-    }
-  }
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#BBA472</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="transparent25">#00ffffff</color>
+    <color name="transparent75">#bf000000</color>
+    <color name="transparent85">#D9000000</color>
+    <color name="themetext75">#bfA472</color>
+    <color name="xd">#bfFFFFFF</color>
+
+    <color name="themetext">#BBA472</color>
+    <color name="gray">#666666</color>
+    <color name="black">#000000</color>
+    <color name="red">#C01A20</color>
+
+
+    <color name="gray01">#ededed</color>
+    <color name="gray_bg">#f3f2f2</color>
+    <color name="lineColor">#ededed</color>
+
+    <color name="bar_grey">#393a3e</color>
+    <color name="color_f6">#f6f6f6</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#7D7DFF</color>
+    <color name="color_fa">#fafafa</color>
+    <color name="divider">#B6B6B6</color>
+    <color name="color_c51">#f94c51</color>
+    <color name="color_green">#43c117</color>
+    
+    <color name="gray02">#F5F5F5</color>
+
+    <color name="gray03">#A5A5A5</color>
+
+    <!-- 浅灰 -->
+    <color name="LightGray">#FFE2E1E1</color>
+    <color name="black_semi_transparent">#B2000000</color>
+    <!-- 透明黑 -->
+    <color name="TransparentBlack">#b4000000</color>
+    <!-- A light Holo shade of green -->
+    <color name="holo_green_light">#ff99cc00</color>
+    <!-- A Holo shade of purple -->
+    <color name="holo_purple">#2196F3</color>
+    <!-- A dark Holo shade of orange -->
+    <color name="holo_orange_dark">#ffff8800</color>
+    <!-- A dark Holo shade of red -->
+    <color name="holo_red_dark">#ffcc0000</color>
+
+    <color name="textColorGray">#999999</color>
+
+    <color name="translucence50">#50000000</color>
+
+
+</resources>

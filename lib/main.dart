@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app2/aminTest.dart';
 import 'package:flutter_app2/dialogTest.dart';
 import 'package:city_pickers/city_pickers.dart';
+import 'package:flutter_app2/login/Login.dart';
 import 'package:flutter_app2/permissionTest.dart';
 import 'package:flutter_app2/pictureTest.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,6 +13,9 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,6 +35,7 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
+
 }
 
 class MyHomePage extends StatefulWidget {
@@ -52,7 +58,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  static const platform = const MethodChannel('dianliang/plugin');
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -61,6 +67,29 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+    });
+  }
+
+  // Get battery level.
+  String _batteryLevel = 'Unknown battery level.';
+  //电量获取
+  Future<void> _getBatteryLevel() async {
+    String batteryLevel;
+    try {
+      final int result = await platform.invokeMethod('getBatteryLevel');
+      batteryLevel = 'Battery level at $result % .';
+    } on PlatformException catch (e) {
+      batteryLevel = "Failed to get battery level: '${e.message}'.";
+    }
+    setState(() {
+      _batteryLevel = batteryLevel;
+      Fluttertoast.showToast(
+        msg: _batteryLevel,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos:1,
+
+      );
     });
   }
 
@@ -143,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: new Text("相册选择"
                 ),
                 onPressed: () {
-                  Navigator.push(context, new MaterialPageRoute(builder:  (context) => new CustomImagePicker(title: "照片,视频")));
+                  Navigator.push(context, new MaterialPageRoute(builder:  (context) => new CustomImagePicker()));
                 }
             ),
             new RaisedButton(
@@ -151,6 +180,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onPressed: () async {
                   Navigator.push(context, new MaterialPageRoute(builder:  (context) => new PermisstionTest()));
+                  //List<Permissions> permissions = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera]);
+                }
+            ),
+            new RaisedButton(
+                child: new Text("电量获取"
+                ),
+                onPressed: () async {
+                  _getBatteryLevel();
+                  //List<Permissions> permissions = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera]);
+                }
+            ),
+            new RaisedButton(
+                child: new Text("登录"
+                ),
+                onPressed: () async {
+                  Navigator.push(context, new MaterialPageRoute(builder:  (context) => new MyLoginWidget()));
                   //List<Permissions> permissions = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera]);
                 }
             ),
@@ -164,4 +209,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+
 }
