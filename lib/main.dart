@@ -7,7 +7,6 @@ import 'package:flutter_app2/login/Login.dart';
 import 'package:flutter_app2/permissionTest.dart';
 import 'package:flutter_app2/pictureTest.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:permission/permission.dart';
 
 void main() => runApp(MyApp());
 

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app2/flutter_WidghtUtils/MyContainUtils.dart';
+import 'package:flutter_app2/main/showmain.dart';
 import 'package:flutter_app2/permissionTest.dart';
 import 'package:flutter_app2/util/SqlUtils.dart';
 import 'package:path/path.dart';
@@ -124,6 +125,13 @@ class MyLoginWidgetState extends State<MyLoginWidget> {
               builder: (ctx) => new AlertDialog(
                     content: new Text('登录不成功'),
                   ));*/
+          Navigator.of(context).push(new PageRouteBuilder(
+            opaque: false,
+            pageBuilder: (BuildContext context, _, __) {
+              //跳转到第一界面
+              return new MyHomePager();
+            },
+          ));
           Fluttertoast.showToast(
             msg: " 登录失败 ",
             toastLength: Toast.LENGTH_SHORT,
@@ -137,7 +145,7 @@ class MyLoginWidgetState extends State<MyLoginWidget> {
             opaque: false,
             pageBuilder: (BuildContext context, _, __) {
               //跳转到第一界面
-              return new PermisstionTest();
+              return new MyHomePager();
             },
           ));
           Fluttertoast.showToast(
@@ -211,7 +219,7 @@ class MyLoginWidgetState extends State<MyLoginWidget> {
               Card(
                 color: Colors.white70,
                 margin: EdgeInsets.only(
-                    top: 190.0, right: 50.0, left: 50.0, bottom: 100.0),
+                    top: 190.0, right: 30.0, left: 30.0, bottom: 100.0),
                 elevation: 11.0,
                 child: Container(
                   alignment: Alignment.center,
@@ -267,7 +275,7 @@ class MyLoginWidgetState extends State<MyLoginWidget> {
                               _Login(this._userPhone, this._passWold, context);
                             },
                             //来个飞溅美滋滋。
-                            splashColor: Colors.purpleAccent,
+                            splashColor: Colors.lightBlue,
                             child: Ink(
                               height: 40.0,
                               decoration: BoxDecoration(
