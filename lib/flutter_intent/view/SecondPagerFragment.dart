@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/flutter_intent/modle/HotBean.dart';
 import 'package:flutter_app2/flutter_intent/modle/HotListItemBean.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SecondPagerFragment extends StatefulWidget {
   String tab_String;
@@ -244,125 +245,135 @@ class SecondPagerFragmentState extends State<SecondPagerFragment> {
             width: MediaQuery.of(context).size.width,
             height:1150.0,
             child: new Container(
+              //商品列表
               child: new ListView.builder(
                 physics: ScrollPhysics(),
                 shrinkWrap:false,
                 itemCount: hotListItemData.length,
                 itemBuilder: (context, index) {
-                  return new Column(
-                    children: <Widget>[
-                      new Container(
-                        child: new Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Container(
-                              margin: new EdgeInsets.all(15.0),
-                              child: new Image.asset(
-                                hotListItemData[index].image_url,
-                                width: 80.0,
-                                height: 50.0,
-                                fit: BoxFit.cover,
+                  return new GestureDetector(onTap: (){
+                    Fluttertoast.showToast(
+                      msg: " 点击测试 ",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIos:1,
+                    );
+                  },
+                    child: new Column(
+                      children: <Widget>[
+                        new Container(
+                          child: new Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
+                                margin: new EdgeInsets.all(15.0),
+                                child: new Image.asset(
+                                  hotListItemData[index].image_url,
+                                  width: 80.0,
+                                  height: 80.0,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            ),
-                            //左边图片
-                            Container(
-                              margin: new EdgeInsets.only(top: 15.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text( hotListItemData[index].item_title),
-                                  new Container(
-                                    margin: new EdgeInsets.only(
-                                        top: 7.0, bottom: 6.0),
-                                    child: new Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.star,
-                                          size: 15.0,
-                                          color: Color(0xFFF9A825),
-                                        ),
-                                        Icon(
-                                          Icons.star_border,
-                                          size: 15.0,
-                                          color: Color(0xFFF9A825),
-                                        ),
-                                        Icon(
-                                          Icons.star_border,
-                                          size: 15.0,
-                                          color: Color(0xFFF9A825),
-                                        ),
-                                        Icon(
-                                          Icons.star_border,
-                                          size: 15.0,
-                                          color: Color(0xFFF9A825),
-                                        ),
-                                        Icon(
-                                          Icons.star_border,
-                                          size: 15.0,
-                                          color: Color(0xFFF9A825),
-                                        ),
-                                        new Text(
-                                          hotListItemData[index].item_subject_score,
-                                          style: TextStyle(fontSize: 10.0),
-                                        ),
-                                        new Text(
-                                          hotListItemData[index].item_subject_money,
-                                          style: TextStyle(fontSize: 10.0),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  new SizedBox(
-                                    width: 50.0,
-                                    height: 20.0,
-                                    child: OutlineButton(
-                                      onPressed: () {},
-                                      padding: new EdgeInsets.all(3.0),
-                                      borderSide: new BorderSide(
-                                          width: 3.0, color: hotListItemData[index].colors),
-                                      child: Text(
-                                        hotListItemData[index].item_end_message,
-                                        style: TextStyle(fontSize: 10.0),
+                              //左边图片
+                              Container(
+                                margin: new EdgeInsets.only(top: 15.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text( hotListItemData[index].item_title),
+                                    new Container(
+                                      margin: new EdgeInsets.only(
+                                          top: 7.0, bottom: 6.0),
+                                      child: new Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.star,
+                                            size: 15.0,
+                                            color: Color(0xFFF9A825),
+                                          ),
+                                          Icon(
+                                            Icons.star_border,
+                                            size: 15.0,
+                                            color: Color(0xFFF9A825),
+                                          ),
+                                          Icon(
+                                            Icons.star_border,
+                                            size: 15.0,
+                                            color: Color(0xFFF9A825),
+                                          ),
+                                          Icon(
+                                            Icons.star_border,
+                                            size: 15.0,
+                                            color: Color(0xFFF9A825),
+                                          ),
+                                          Icon(
+                                            Icons.star_border,
+                                            size: 15.0,
+                                            color: Color(0xFFF9A825),
+                                          ),
+                                          new Text(
+                                            hotListItemData[index].item_subject_score,
+                                            style: TextStyle(fontSize: 10.0),
+                                          ),
+                                          new Text(
+                                            hotListItemData[index].item_subject_money,
+                                            style: TextStyle(fontSize: 10.0),
+                                          )
+                                        ],
                                       ),
                                     ),
-                                  ),
-                                  new Container(
-                                    margin: new EdgeInsets.only(bottom: 10.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Container(
-                                          child: Icon(
-                                            hotListItemData[index].iconname,
-                                            color: Colors.teal,
-                                            size: 20.0,
-                                          ),
+                                    new SizedBox(
+                                      width: 50.0,
+                                      height: 20.0,
+                                      child: OutlineButton(
+                                        onPressed: () {},
+                                        padding: new EdgeInsets.all(3.0),
+                                        borderSide: new BorderSide(
+                                            width: 3.0, color: hotListItemData[index].colors),
+                                        child: Text(
+                                          hotListItemData[index].item_end_message,
+                                          style: TextStyle(fontSize: 10.0),
                                         ),
-                                        Container(
-                                          child: new Text(
-                                            hotListItemData[index].message,
-                                            style: TextStyle(
-                                                fontSize: 12.0,
-                                                color: Colors.black45),
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    new Container(
+                                      margin: new EdgeInsets.only(bottom: 10.0),
+                                      child: Row(
+                                        children: <Widget>[
+                                          Container(
+                                            child: Icon(
+                                              hotListItemData[index].iconname,
+                                              color: Colors.teal,
+                                              size: 20.0,
+                                            ),
+                                          ),
+                                          Container(
+                                            child: new Text(
+                                              hotListItemData[index].message,
+                                              style: TextStyle(
+                                                  fontSize: 12.0,
+                                                  color: Colors.black45),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            //右边的文字们
-                            Container(), //这个是文字
-                          ],
+                              //右边的文字们
+                              Container(), //这个是文字
+                            ],
+                          ),
                         ),
-                      ),
-                      Divider(height: 1.0,color: Colors.black12,),
-                    ],
+                        Divider(height: 1.0,color: Colors.black12,),
+                      ],
+                    ),
                   );
                 },
               ),

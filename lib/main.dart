@@ -6,6 +6,7 @@ import 'package:city_pickers/city_pickers.dart';
 import 'package:flutter_app2/login/Login.dart';
 import 'package:flutter_app2/permissionTest.dart';
 import 'package:flutter_app2/pictureTest.dart';
+import 'package:flutter_app2/shop/index.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(MyApp());
@@ -198,6 +199,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   //List<Permissions> permissions = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera]);
                 }
             ),
+            new RaisedButton(
+                child: new Text("商城"
+                ),
+                onPressed: () async {
+                  Navigator.push(context, new MaterialPageRoute(builder:  (context) => new Index()));
+                  //List<Permissions> permissions = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera]);
+                }
+            ),
+
           ],
         ),
       ),

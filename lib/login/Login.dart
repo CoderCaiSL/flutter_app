@@ -160,7 +160,6 @@ class MyLoginWidgetState extends State<MyLoginWidget> {
     } catch (e) {
       return result;
     }
-
     return result;
   }
 

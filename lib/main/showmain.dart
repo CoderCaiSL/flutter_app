@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter_app2/flutter_intent/view/AppBar2.dart';
+import 'package:flutter_app2/flutter_intent/view/NetDataPager.dart';
+import 'package:flutter_app2/flutter_intent/view/SecondPager.dart';
+import 'package:flutter_app2/flutter_person/PersonPager.dart';
+import 'package:flutter_app2/flutter_system/SystemPage.dart';
 import 'package:flutter_app2/flutter_widget/WidgetPager.dart';
 import 'package:flutter_app2/flutter_widget/WidgetText.dart';
 import 'package:flutter_app2/flutter_widget/modle/HomePageBean.dart';
@@ -330,15 +334,14 @@ class FragmentPagerSendcondWidgetState
           ),
           new GestureDetector(
             onTap: () {
-              //注销
-              /*setState(() {
+              setState(() {
                 Navigator.of(context).push(new PageRouteBuilder(
                   opaque: false,
                   pageBuilder: (BuildContext context, _, __) {
                     return new NetDataPager(index: 1);
                   },
                 ));
-              });*/
+              });
             },
             child: new Container(
               child: new Column(
@@ -363,15 +366,14 @@ class FragmentPagerSendcondWidgetState
           ),
           new GestureDetector(
             onTap: () {
-              //注销
-              /*setState(() {
+              setState(() {
                 Navigator.of(context).push(new PageRouteBuilder(
                   opaque: false,
                   pageBuilder: (BuildContext context, _, __) {
                     return new NetDataPager(index: 2);
                   },
                 ));
-              });*/
+              });
             },
             child: new Container(
               child: new Column(
@@ -396,14 +398,13 @@ class FragmentPagerSendcondWidgetState
           ),
           new GestureDetector(
             onTap: () {
-              //注销
-              /*setState(() {
+              setState(() {
                 Navigator.of(context).push(new PageRouteBuilder(
                   pageBuilder: (BuildContext context, _, __) {
                     return new NetDataPager(index: 3);
                   },
                 ));
-              });*/
+              });
             },
             child: new Container(
               child: new Column(
@@ -1320,21 +1321,18 @@ class _MyHomePageState extends State<MyHomePager>
               )
                   : index == 1
                   ? new Container(
-                //注销
-              /*child: SecondPager(),*/
+              child: SecondPager(),
                 color: Colors.black12,
               )
-              //注销
-                  /*: index == 2
-                  ? new SystemPage()*/
+                  : index == 2
+                  ? new SystemPage()
                   : new MaterialApp(
                 theme: new ThemeData(
                   primarySwatch: Colors.amber,
                   primaryColor: Colors.blue,
                   accentColor: Colors.deepOrangeAccent,
                 ),
-                //点击
-                /*home: new PersonPager(),*/
+                home: new PersonPager(),
               ),
               /*new MaterialApp(
       title: 'app',
