@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app2/shop/constants/index.dart';
 import 'package:flutter_app2/shop/page/home/firstTab.dart';
 import 'package:flutter_app2/shop/page/home/tabbar.dart';
 import 'package:flutter_app2/shop/page/home/topbar.dart';
+import 'package:flutter_app2/shop/search/topbar.dart';
 
 //首页
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+
     return DefaultTabController(
         length: 9,
         initialIndex: 0,
         child: Column(
           children: <Widget>[
-            HomeTopBar(),
-            KTabBarWidget(),
+            AppBar(
+              brightness: Brightness.light,
+              backgroundColor: KColorConstant.searchAppBarBgColor,
+              elevation: 0,
+              titleSpacing: 0,//让自己的title控件填充整个屏幕
+              automaticallyImplyLeading: false,//去左按钮
+              centerTitle: false,
+              title: HomeTopBar(),
+            ),
+        KTabBarWidget(),
             Expanded(
                 child: TabBarView(
                   children: <Widget>[

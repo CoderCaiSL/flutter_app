@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/shop/model/kingkong.dart';
+import 'package:flutter_app2/shop/page/HomeDetails/GoodDel.dart';
 import 'package:flutter_app2/shop/utils/screen_util.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:path/path.dart';
 
 class HomeKingKongWidget extends StatelessWidget {
   final KingKongList data;
@@ -15,7 +18,7 @@ class HomeKingKongWidget extends StatelessWidget {
     return Container(
       width: deviceWidth,
       height: height,
-      child: _buildRow(deviceWidth),
+      child: _buildRow(context,deviceWidth),
       decoration: bgurl != ''
           ? BoxDecoration(
               image: DecorationImage(
@@ -24,7 +27,7 @@ class HomeKingKongWidget extends StatelessWidget {
     );
   }
 
-  Row _buildRow(double deviceWidth) {
+  Row _buildRow(BuildContext context,double deviceWidth) {
     var colorInt = int.parse(fontColor.replaceAll('#', '0x'));
     Color color = new Color(colorInt).withOpacity(1.0);
     double iconWidth = ScreenUtil().L(58);
@@ -35,7 +38,13 @@ class HomeKingKongWidget extends StatelessWidget {
                onTap: (){
                  // ignore: argument_type_not_assignable
                  String str = i.title;
-                 print("点击$str");
+                 Fluttertoast.showToast(
+                   msg: " 点击$str ",
+                   toastLength: Toast.LENGTH_SHORT,
+                   gravity: ToastGravity.BOTTOM,
+                   timeInSecForIos:1,
+                 );
+                 Navigator.push(context, new MaterialPageRoute(builder:  (context) => new GoodDetails()));
                },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

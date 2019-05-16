@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app2/shop/constants/index.dart';
 import 'package:flutter_app2/shop/utils/utils.dart';
 
+//热搜
 class HotSugWidget extends StatelessWidget {
   final List hotWords;
   final ValueChanged<String> goSearchList;

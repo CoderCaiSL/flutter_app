@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app2/shop/constants/index.dart';
+import 'package:flutter_app2/shop/page/cart/MyCart.dart';
 import 'package:flutter_app2/shop/page/classify/classify.dart';
 import 'package:flutter_app2/shop/page/home/Home.dart';
 import 'package:flutter_app2/shop/utils/screen_util.dart';
@@ -17,6 +20,43 @@ class Index extends StatelessWidget {
   }
 }
 
+class IndexHome extends StatefulWidget {
+  @override
+  IndexHomeState createState() => new IndexHomeState();
+}
+
+class IndexHomeState extends State<IndexHome> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IndexMain(),
+    );
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(IndexHome oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+}
+
 
 // -------------------- 第一中方式的bottom --------start
 class IndexMain extends StatefulWidget {
@@ -24,7 +64,7 @@ class IndexMain extends StatefulWidget {
   IndexMainState createState() => new IndexMainState();
 }
 
-class IndexMainState extends State<IndexMain>  with AutomaticKeepAliveClientMixin{
+class IndexMainState extends State<IndexMain> {
 
   int _tabIndex = 0;
   var tabImages;
@@ -81,7 +121,7 @@ class IndexMainState extends State<IndexMain>  with AutomaticKeepAliveClientMixi
       new Home(),
       new Classify(),
       new Home(),
-      new Home(),
+      new MyCart(),
       new Home(),
     ];
   }
@@ -89,10 +129,6 @@ class IndexMainState extends State<IndexMain>  with AutomaticKeepAliveClientMixi
   @override
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil(width: Klength.designWidth)..init(context);
-    double extralHeight = Klength.topBarHeight + //顶部标题栏高度
-        Klength.bottomBarHeight + //底部tab栏高度
-        ScreenUtil.statusBarHeight + //状态栏高度
-        ScreenUtil.bottomBarHeight; //IPhoneX底部状态栏
     //初始化数据
     initData();
     return Scaffold(
@@ -153,11 +189,6 @@ class IndexMainState extends State<IndexMain>  with AutomaticKeepAliveClientMixi
     super.didChangeDependencies();
   }
 
-  noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }
 
 // -------------------- 第一中方式的bottom --------end
@@ -185,7 +216,7 @@ class IndexMain2State extends State<IndexMain2> with SingleTickerProviderStateMi
           new Home(),
           new Classify(),
           new Home(),
-          new Home(),
+          new MyCart(),
           new Home(),
       ],
         controller: tabcontroller,

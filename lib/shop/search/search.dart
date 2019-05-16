@@ -26,6 +26,7 @@ class SearchPageState extends State<SearchPage> {
           leading: SearchTopBarLeadingWidget(),
           actions: <Widget>[
             SearchTopBarActionWidget(
+              //跳转到搜索列表
               onActionTap: () => goSearchList(controller.text),
             )
           ],
@@ -60,6 +61,7 @@ class SearchPageState extends State<SearchPage> {
       List item = i as List;
       return item[0] as String;
     }).toList();
+    //刷新界面
     setState(() {});
   }
 

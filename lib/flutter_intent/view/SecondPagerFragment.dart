@@ -332,7 +332,7 @@ class SecondPagerFragmentState extends State<SecondPagerFragment> {
                                       height: 20.0,
                                       child: OutlineButton(
                                         onPressed: () {},
-                                        padding: new EdgeInsets.all(3.0),
+                                        padding: new EdgeInsets.all(1.0),
                                         borderSide: new BorderSide(
                                             width: 3.0, color: hotListItemData[index].colors),
                                         child: Text(

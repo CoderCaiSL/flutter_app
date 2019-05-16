@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app2/aminTest.dart';
@@ -18,20 +20,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //沉浸状态栏
+    if(Platform.isAndroid){
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light)
+      );
+    }
     return MaterialApp(
+
+      debugShowCheckedModeBanner: false,  // 设置这一属性即可去掉debug
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -202,9 +201,14 @@ class _MyHomePageState extends State<MyHomePage> {
             new RaisedButton(
                 child: new Text("商城"
                 ),
-                onPressed: () async {
-                  Navigator.push(context, new MaterialPageRoute(builder:  (context) => new Index()));
-                  //List<Permissions> permissions = await Permission.requestPermissions([PermissionName.Calendar, PermissionName.Camera]);
+                onPressed: () {
+                  Navigator.of(context).push(new PageRouteBuilder(
+                    opaque: false,
+                    pageBuilder: (BuildContext context, _, __) {
+                      //跳转到商城
+                      return new IndexHome();
+                    },
+                  ));
                 }
             ),
 

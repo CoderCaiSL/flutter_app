@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app2/shop/constants/index.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -8,10 +11,16 @@ class HomeTopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+    if(Platform.isAndroid){
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark)
+      );
+    }
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return Container(
-      color: Colors.white,
+      alignment: Alignment.center,
+      color: Colors.transparent,
       padding: EdgeInsets.only(
           top: statusBarHeight, left: 10, right: 10, bottom: 10),
       child: Row(
@@ -21,10 +30,11 @@ class HomeTopBar extends StatelessWidget {
             flex: 1,
             child: GestureDetector(
                 onTap: () {
-                     Navigator.push(context,CupertinoPageRoute(builder: (BuildContext context){
-                        //跳转到搜索界面
-                        return  SearchPage();
-                     }));
+                  Navigator.push(context,
+                      new MaterialPageRoute(builder: (BuildContext context) {
+                        return SearchPage();
+                      })
+                  );
                 },
                 child: Container(
                   height: 34.0,

@@ -54,6 +54,8 @@ dependencies:
   shimmer: ^0.0.4
   flutter_staggered_grid_view:
   flutter_slidable: "^0.4.9"
+  scoped_model: 1.0.1
+
 
   #shop
   json_serializable: ^2.0.0

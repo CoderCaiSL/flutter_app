@@ -20,6 +20,10 @@ class KColorConstant {
   static const Color goPayBtTxtColor =  Color(0xFFFFFFFF);
   static const Color searchAppBarBgColor =  Color(0xFFFFFFFF);
 
+  static const Color goodsItem =  Color(0xfff8f8f9);
+  static const Color red =  Color(0xfffc352d);
+
+
   static const Color bottomBarbgColor = Color.fromRGBO(250, 250, 250, 1.0);
 
 

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app2/shop/constants/index.dart';
 import 'package:flutter_app2/shop/model/search.dart';
+import 'package:flutter_app2/shop/model/search_del_entity.dart';
+import 'package:flutter_app2/shop/page/HomeDetails/GoodDel.dart';
+import 'package:flutter_app2/shop/services/search.dart';
 import 'package:flutter_app2/shop/utils/screen_util.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SearchResultListWidget extends StatelessWidget {
   final SearchResultListModal list;
@@ -23,7 +27,11 @@ class SearchResultListWidget extends StatelessWidget {
               if((i+3)==list.data.length){
                 getNextPage();
               }
-              return Container(
+              return GestureDetector(
+                onTap: (){
+                  Navigator.push(context, new MaterialPageRoute(builder:  (context) => new GoodDetails()));
+                },
+                child: Container(
                 color: KColorConstant.searchAppBarBgColor,
                 padding: EdgeInsets.only(
                     top: ScreenUtil().L(5), right: ScreenUtil().L(10)),
@@ -39,62 +47,63 @@ class SearchResultListWidget extends StatelessWidget {
                     ),
                     Expanded(
                         child: Container(
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  width: 1,
-                                  color: KColorConstant.divideLineColor))),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            item.wareName,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Row(
+                          decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                      width: 1,
+                                      color: KColorConstant.divideLineColor))),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              SizedBox(
-                                width: 5,
+                              Text(
+                                item.wareName,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    '￥${item.price}',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        color: KColorConstant.priceColor),
+                                  ),
+                                  item.coupon == null
+                                      ? SizedBox()
+                                      : Container(
+                                    child: Text(
+                                      item.coupon,
+                                      style: TextStyle(
+                                          color: KColorConstant.themeColor),
+                                    ),
+                                    padding: EdgeInsets.symmetric(horizontal: 3),
+                                    margin: EdgeInsets.only(left: 4),
+                                    decoration: BoxDecoration(border: Border.all(width: 1,color:KColorConstant.themeColor)),
+                                  )
+                                ],
                               ),
                               Text(
-                                '￥${item.price}',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: KColorConstant.priceColor),
+                                '${item.commentcount}人评价 好评率${item.good}%',
+                                style:
+                                KfontConstant.searchResultItemCommentCountStyle,
                               ),
-                              item.coupon == null
-                                  ? SizedBox()
-                                  : Container(
-                                      child: Text(
-                                        item.coupon,
-                                        style: TextStyle(
-                                            color: KColorConstant.themeColor),
-                                      ),
-                                      padding: EdgeInsets.symmetric(horizontal: 3),
-                                      margin: EdgeInsets.only(left: 4),
-                                      decoration: BoxDecoration(border: Border.all(width: 1,color:KColorConstant.themeColor)),
-                                    )
+                              Text(
+                                '${item.shopName}',
+                                style:
+                                KfontConstant.searchResultItemCommentCountStyle,
+                              ),
                             ],
                           ),
-                          Text(
-                            '${item.commentcount}人评价 好评率${item.good}%',
-                            style:
-                                KfontConstant.searchResultItemCommentCountStyle,
-                          ),
-                          Text(
-                            '${item.shopName}',
-                            style:
-                                KfontConstant.searchResultItemCommentCountStyle,
-                          ),
-                        ],
-                      ),
-                    ))
+                        ))
                   ],
                 ),
-              );
+              ),);
             },
           );
   }
+
 }
