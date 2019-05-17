@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app2/shop/constants/index.dart';
 import 'package:flutter_app2/shop/page/cart/MyCart.dart';
+import 'package:flutter_app2/shop/page/classify/category.dart';
 import 'package:flutter_app2/shop/page/classify/classify.dart';
 import 'package:flutter_app2/shop/page/home/Home.dart';
 import 'package:flutter_app2/shop/utils/screen_util.dart';
@@ -69,6 +70,11 @@ class IndexMainState extends State<IndexMain> {
   int _tabIndex = 0;
   var tabImages;
   var appBarTitles = [' 首页 ', ' 分类 ', ' 发现 ',"购物车"," 我的 "];
+
+  double extralHeight = Klength.topBarHeight + //顶部标题栏高度
+      Klength.bottomBarHeight + //底部tab栏高度
+      ScreenUtil.statusBarHeight + //状态栏高度
+      ScreenUtil.bottomBarHeight; //IPhoneX底部状态栏
   /*
    * 存放页面，跟fragmentList一样
    */
@@ -119,7 +125,8 @@ class IndexMainState extends State<IndexMain> {
      */
     _pageList = [
       new Home(),
-      new Classify(),
+      new Category(
+          rightListViewHeight: ScreenUtil.screenHeight - extralHeight),
       new Home(),
       new MyCart(),
       new Home(),

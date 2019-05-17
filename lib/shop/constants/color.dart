@@ -22,6 +22,9 @@ class KColorConstant {
 
   static const Color goodsItem =  Color(0xfff8f8f9);
   static const Color red =  Color(0xfffc352d);
+  static const Color red1 =  Color(0xffff4a0c);
+  static const Color red2 =  Color(0xfffd9100);
+  static const Color red3 =  Color(0xfffdbe00);
 
 
   static const Color bottomBarbgColor = Color.fromRGBO(250, 250, 250, 1.0);

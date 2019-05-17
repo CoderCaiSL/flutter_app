@@ -3,6 +3,7 @@ import 'package:flutter_app2/shop/constants/string.dart';
 import 'package:flutter_app2/shop/data/cart.dart';
 import 'package:flutter_app2/shop/model/cart.dart';
 import 'package:flutter_app2/shop/page/cart/cart_list.dart';
+import 'package:flutter_app2/shop/page/cart/cartbottom.dart';
 import 'package:flutter_app2/shop/topbar.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -22,7 +23,7 @@ class MyCartState extends State<MyCart> {
           children: <Widget>[
             TopBarWidget(KString.cartTitle),
             CartListWidget(),
-            /*CartBottomWidget()*/
+            CartBottomWidget(),
           ],
         ));
   }

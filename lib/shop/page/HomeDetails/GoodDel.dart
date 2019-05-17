@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app2/shop/constants/index.dart';
 import 'package:flutter_app2/shop/data/home.dart';
 import 'package:flutter_app2/shop/model/search_del_entity.dart';
+import 'package:flutter_app2/shop/page/HomeDetails/GoodDelBottom.dart';
+import 'package:flutter_app2/shop/page/HomeDetails/NativeWebView.dart';
+import 'package:flutter_app2/shop/page/HomeDetails/NewsWebPage.dart';
 import 'package:flutter_app2/shop/page/HomeDetails/shopBanner.dart';
 import 'package:flutter_app2/shop/search/topbar.dart';
 import 'package:flutter_app2/shop/services/search.dart';
 import 'package:flutter_app2/shop/utils/screen_util.dart';
+import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class GoodDetails extends StatefulWidget {
@@ -20,8 +24,6 @@ class GoodDetailsState extends State<GoodDetails> {
 
   @override
   Widget build(BuildContext context) {
-    SearchDelResult searchDelResult = searchDelEntity.result;
-    SearchDelResultGoods goods = searchDelEntity.result.goods;
     return new Scaffold(
       appBar: new AppBar(
         elevation: 0,
@@ -31,10 +33,30 @@ class GoodDetailsState extends State<GoodDetails> {
         centerTitle: true,
         title: new Text('商品详情',style: TextStyle(color: Colors.black),),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
+      body:Column(children: <Widget>[
+        Expanded(
+          child:  SingleChildScrollView(
+            child: showShop(searchDelEntity)
+        ),),
+        GoodDelBottom(),
+      ],),
+      floatingActionButton: Container(padding: EdgeInsets.fromLTRB(0, 0, 10, 60),
+      child: GestureDetector(onTap: (){
+      },
+      child: new Image.asset("images/area.png", width: 24.0, height: 24.0),),),
+    );
+
+  }
+
+  showShop(SearchDelEntity searchDelEntity){
+    if(searchDelEntity == null){
+      return Container(child: null,);
+    }else{
+      SearchDelResult searchDelResult = searchDelEntity.result;
+      SearchDelResultGoods goods = searchDelEntity.result.goods;
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
           GoodBanner(banners: bannerList),
           Container(
             padding: EdgeInsets.only(
@@ -71,25 +93,25 @@ class GoodDetailsState extends State<GoodDetails> {
                         }
                       },
                       child: Row(
-                      children: <Widget>[
-                        InkWell(
-                            child: Icon(
-                              searchDelResult.collect == 1
-                                  ? Icons.star
-                                  : Icons.star_border,
-                              color: KColorConstant.themeColor,
-                              size:16,
-                            )),
+                        children: <Widget>[
+                          InkWell(
+                              child: Icon(
+                                searchDelResult.collect == 1
+                                    ? Icons.star
+                                    : Icons.star_border,
+                                color: KColorConstant.themeColor,
+                                size:16,
+                              )),
 
-                        SizedBox(
-                            width: 46,
-                            child:Text(
-                              searchDelResult.collect == 1?"已收藏":"收藏",
-                              textAlign: TextAlign.center, //文本对齐方式  居中
-                              style: TextStyle(
-                                fontSize: 12,),)),
-                      ],
-                    ),
+                          SizedBox(
+                              width: 46,
+                              child:Text(
+                                searchDelResult.collect == 1?"已收藏":"收藏",
+                                textAlign: TextAlign.center, //文本对齐方式  居中
+                                style: TextStyle(
+                                  fontSize: 12,),)),
+                        ],
+                      ),
                     ),
                     new GestureDetector(
                       onTap: (){
@@ -101,29 +123,29 @@ class GoodDetailsState extends State<GoodDetails> {
                         );
                       },
                       child: Row(children: <Widget>[
-                      InkWell(
-                          onTap: (){
-                            Fluttertoast.showToast(
-                              msg: " 分享 ",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIos:1,
-                            );
-                          },
-                          child: Icon(
-                            Icons.share,
-                            color: KColorConstant.themeColor,
-                            size:16,
-                          )),
-                      SizedBox(
-                          width: 42,
-                          child:Text(
-                            "分享",
-                            textAlign: TextAlign.center, //文本对齐方式  居中
-                            style: TextStyle(
-                              fontSize: 12,),))
+                        InkWell(
+                            onTap: (){
+                              Fluttertoast.showToast(
+                                msg: " 分享 ",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIos:1,
+                              );
+                            },
+                            child: Icon(
+                              Icons.share,
+                              color: KColorConstant.themeColor,
+                              size:16,
+                            )),
+                        SizedBox(
+                            width: 42,
+                            child:Text(
+                              "分享",
+                              textAlign: TextAlign.center, //文本对齐方式  居中
+                              style: TextStyle(
+                                fontSize: 12,),))
 
-                    ],),)
+                      ],),)
                   ],),
               ],
             ),
@@ -150,18 +172,18 @@ class GoodDetailsState extends State<GoodDetails> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment:  MainAxisAlignment.spaceBetween,
               children: <Widget>[
-              Text("快递费：${goods.franking}", style: TextStyle(fontSize: 12),),
-              Text("快递费：${goods.franking}", style: TextStyle(fontSize: 12),),
-              Text("快递费：${goods.franking}", style: TextStyle(fontSize: 12),),
-            ],),),
-            Container(
-              height: ScreenUtil().L(50),
-              color: KColorConstant.goodsItem,
-              padding: EdgeInsets.fromLTRB(15, 5, 10, 5),
-              child: Row(children: <Widget>[
-                Expanded(child: Row(children: <Widget>[
-                  Text("优惠券",style: TextStyle(color: Colors.black,fontSize: 16)),
-                  Container(padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                Text("快递费：${goods.franking}元", style: TextStyle(fontSize: 12),),
+                Text("库存：${goods.stock}件", style: TextStyle(fontSize: 12),),
+                Text("已售：${goods.salesVolume}件", style: TextStyle(fontSize: 12),),
+              ],),),
+          Container(
+            height: ScreenUtil().L(50),
+            color: KColorConstant.goodsItem,
+            padding: EdgeInsets.fromLTRB(15, 5, 10, 5),
+            child: Row(children: <Widget>[
+              Expanded(child: Row(children: <Widget>[
+                Text("优惠券",style: TextStyle(color: Colors.black,fontSize: 16)),
+                Container(padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
                   child: SizedBox(
                     height: ScreenUtil().L(20),
                     child: OutlineButton(
@@ -176,17 +198,25 @@ class GoodDetailsState extends State<GoodDetails> {
                       ),
                     ),
                   ),),
-                ],)),
-                new Icon(
-                  Icons.navigate_next,
-                  size: 18,
-                ),
-              ],),
-            ),
-        ],),
-      ),
-    );
+              ],)),
+              new Icon(
+                Icons.navigate_next,
+                size: 18,
+              ),
+            ],),
+          ),
+          /*ListView(children: <Widget>[
+            NativeWenView(data: goods.details,)
+          ],),*/
+          Container(
+              height: 2700,
+              child:  NativeWenView(data: goods.details,)
+          ),
+        ],);
+    }
+
   }
+
   @override
   void initState() {
     // TODO: implement initState
