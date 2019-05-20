@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app2/flutter_person/PersonPager.dart';
 import 'package:flutter_app2/shop/constants/index.dart';
 import 'package:flutter_app2/shop/page/cart/MyCart.dart';
 import 'package:flutter_app2/shop/page/classify/category.dart';
 import 'package:flutter_app2/shop/page/classify/classify.dart';
 import 'package:flutter_app2/shop/page/home/Home.dart';
+import 'package:flutter_app2/shop/page/me/MyPage.dart';
 import 'package:flutter_app2/shop/utils/screen_util.dart';
 
 class Index extends StatelessWidget {
@@ -71,10 +73,6 @@ class IndexMainState extends State<IndexMain> {
   var tabImages;
   var appBarTitles = [' 首页 ', ' 分类 ', ' 发现 ',"购物车"," 我的 "];
 
-  double extralHeight = Klength.topBarHeight + //顶部标题栏高度
-      Klength.bottomBarHeight + //底部tab栏高度
-      ScreenUtil.statusBarHeight + //状态栏高度
-      ScreenUtil.bottomBarHeight; //IPhoneX底部状态栏
   /*
    * 存放页面，跟fragmentList一样
    */
@@ -110,6 +108,11 @@ class IndexMainState extends State<IndexMain> {
   }
 
   void initData() {
+    ScreenUtil.instance = ScreenUtil(width: Klength.designWidth)..init(context);
+    double extralHeight = Klength.topBarHeight + //顶部标题栏高度
+        Klength.bottomBarHeight + //底部tab栏高度
+        ScreenUtil.statusBarHeight + //状态栏高度
+        ScreenUtil.bottomBarHeight; //IPhoneX底部状态栏
     /*
      * 初始化选中和未选中的icon
      */
@@ -129,13 +132,12 @@ class IndexMainState extends State<IndexMain> {
           rightListViewHeight: ScreenUtil.screenHeight - extralHeight),
       new Home(),
       new MyCart(),
-      new Home(),
+      new MyPage(),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil(width: Klength.designWidth)..init(context);
     //初始化数据
     initData();
     return Scaffold(

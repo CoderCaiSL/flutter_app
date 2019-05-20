@@ -206,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     opaque: false,
                     pageBuilder: (BuildContext context, _, __) {
                       //跳转到商城
-                      return new IndexHome();
+                      return new Index();
                     },
                   ));
                 }

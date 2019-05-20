@@ -12,9 +12,8 @@ class ArcBannerImage extends StatelessWidget {
     return ClipPath(
       clipper: ArcClipper(),
       child: Container(
-        padding: new EdgeInsets.only(left: 15.0, right: 15.0, top: 30.0),
+        padding: new EdgeInsets.only(left: 15.0, right: 15.0, top: 40.0),
         child: new Row(
-
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -55,6 +54,46 @@ class ArcBannerImage extends StatelessWidget {
     );
   }
 }
+
+class catPath extends StatefulWidget {
+  @override
+  catPathState createState() => new catPathState();
+}
+
+class catPathState extends State<catPath> {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text(''),
+      ),
+    );
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(catPath oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+}
+
 
 class ArcClipper extends CustomClipper<Path> {
   @override
