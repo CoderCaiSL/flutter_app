@@ -10,6 +10,8 @@ import 'package:flutter_app2/shop/page/classify/classify.dart';
 import 'package:flutter_app2/shop/page/home/Home.dart';
 import 'package:flutter_app2/shop/page/me/MyPage.dart';
 import 'package:flutter_app2/shop/utils/screen_util.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
+
 
 class Index extends StatelessWidget {
   @override
@@ -39,6 +41,17 @@ class IndexHomeState extends State<IndexHome> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _initFluwx();
+
+  }
+  _initFluwx() async {
+    await fluwx.register(
+        appId: "wxf69d68d349e12f0d",
+        doOnAndroid: true,
+        doOnIOS: true,
+        enableMTA: false);
+    var result = await fluwx.isWeChatInstalled();
+    print("is installed $result");
   }
 
   @override
@@ -178,6 +191,16 @@ class IndexMainState extends State<IndexMain> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _initFluwx();
+  }
+  _initFluwx() async {
+    await fluwx.register(
+        appId: "wxf69d68d349e12f0d",
+        doOnAndroid: true,
+        doOnIOS: true,
+        enableMTA: false);
+    var result = await fluwx.isWeChatInstalled();
+    print("is installed $result");
   }
 
   @override

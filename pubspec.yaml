@@ -58,8 +58,18 @@ dependencies:
   flutter_webview_plugin: ^0.2.1+2
   flutter_inappbrowser: ^0.6.0
 
+  #微信
+  fluwx: ^0.6.2
+
   #shop
   json_serializable: ^2.0.0
+
+  #高德地图
+  amap_base:
+      git:
+        url: https://github.com/yohom/amap_base_flutter.git
+        ref: android-support-library
+        path: base
 
 dev_dependencies:
   flutter_test:
@@ -153,6 +163,7 @@ flutter:
   - images/bbbb.png
   - images/wallfy.png
   - images/area.png
+  - images/home_map_icon_positioning_nor.png
   # To add assets to your application, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg

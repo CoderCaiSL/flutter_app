@@ -36,7 +36,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="flutter_app2"
+        android:label="新APP"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -61,5 +61,8 @@
         <activity android:name="com.example.VideoPlayActivity"
             android:screenOrientation="portrait"
             />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="4a90a0f4575ff0513c6f190e41060edc" />
     </application>
 </manifest>

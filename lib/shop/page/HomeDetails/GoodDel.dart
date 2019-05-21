@@ -11,6 +11,8 @@ import 'package:flutter_app2/shop/services/search.dart';
 import 'package:flutter_app2/shop/utils/screen_util.dart';
 import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fluwx/fluwx.dart' as fluwx;
+
 
 class GoodDetails extends StatefulWidget {
   @override
@@ -115,22 +117,20 @@ class GoodDetailsState extends State<GoodDetails> {
                     ),
                     new GestureDetector(
                       onTap: (){
-                        Fluttertoast.showToast(
-                          msg: " 分享 ",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          timeInSecForIos:1,
-                        );
+                        String _url = "https://baike.baidu.com/item/www/109924?fr=aladdin";
+                        String _title = "Fluwx";
+                        String _thumnail = "assets://images/logo.png";
+                        fluwx.WeChatScene scene = fluwx.WeChatScene.SESSION;
+                        _share(_url, _title, _thumnail, scene);
                       },
                       child: Row(children: <Widget>[
                         InkWell(
                             onTap: (){
-                              Fluttertoast.showToast(
-                                msg: " 分享 ",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIos:1,
-                              );
+                              String _url = "https://baike.baidu.com/item/www/109924?fr=aladdin";
+                              String _title = "Fluwx";
+                              String _thumnail = "assets://images/logo.png";
+                              fluwx.WeChatScene scene = fluwx.WeChatScene.SESSION;
+                              _share(_url, _title, _thumnail, scene);
                             },
                             child: Icon(
                               Icons.share,
@@ -215,6 +215,16 @@ class GoodDetailsState extends State<GoodDetails> {
         ],);
     }
 
+  }
+
+    void _share(String _url,String _title,String _thumnail,fluwx.WeChatScene scene) {
+    var model = fluwx.WeChatShareWebPageModel(
+        webPage: _url,
+        title: _title,
+        thumbnail: _thumnail,
+        scene: scene,
+        transaction: "flutter一堆坑");
+    fluwx.share(model);
   }
 
   @override

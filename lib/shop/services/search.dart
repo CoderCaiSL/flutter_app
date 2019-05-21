@@ -1,4 +1,7 @@
 
+import 'package:flutter_app2/shop/model/order_bean_entity.dart';
+import 'package:flutter_app2/shop/model/pay_bean_entity.dart';
+import 'package:flutter_app2/shop/model/pay_bean_new_entity.dart';
 import 'package:flutter_app2/shop/model/search_del_entity.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -47,10 +50,6 @@ getSearchResult(String keyworld,[int page=0]) async{
 getSearchDe(String cId) async{
   cId = "239" ;
   String url = 'https://testapi.uxiangg.com/xt-webapi/goods/selectGoodsDetails';
-  Map<String, dynamic> param = {
-    'goodsId': cId,
-    'userId': -1,
-  };
   final http.Response response = await http.post(
       url,
       body: {
@@ -68,4 +67,56 @@ getSearchDe(String cId) async{
   print(' $str数据$responseData');
   ///有值
   return SearchDelEntity.fromJson(responseData);
+}
+
+//获取订单号
+getOrder() async{
+  String url = 'https://testapi.uxiangg.com/xt-webapi/goods/immediatelyBuy';
+  final http.Response response = await http.post(
+      url,
+      body: {
+        'userId': '949',
+        'goodsId': '272',
+        'num': '2',
+        'norms': '测试链接，拍下不发货',
+        'state': '0',
+        'consignee': '123',
+        'phone': '13511111111',
+        'couponId': '0',
+        'remarks': '',
+        'integralNum': '0',
+        'esudaa': '0',
+        'address': '北京市北京市东城区111111111111111'
+      });
+  final String res = response.body;
+  final int statusCode = response.statusCode;
+  if (statusCode < 200 || statusCode > 400 || json == null) {
+    print(' 失败数据$statusCode');
+    throw new Exception("Error while fetching data");
+  }
+  final Map<String, dynamic> responseData = json.decode(response.body);
+  print('r数据$responseData');
+  ///有值
+  return responseData;
+}
+
+//获取支付信息
+getPay(String out_trade_no) async{
+  String url = 'https://testapi.uxiangg.com/xt-webapi/pay/weixinPayRequest';
+  final http.Response response = await http.post(
+      url,
+      body: {
+        'out_trade_no': out_trade_no,
+        'trade_type': 'APP',
+        'pay_way': 'tenpay'
+      });
+  final String res = response.body;
+  final int statusCode = response.statusCode;
+  if (statusCode < 200 || statusCode > 400 || json == null) {
+    throw new Exception("Error while fetching data");
+  }
+  final Map<String, dynamic> responseData = json.decode(response.body);
+  print(' 数据$responseData');
+  ///有值
+  return PayBeanNewEntity.fromJson(responseData);
 }

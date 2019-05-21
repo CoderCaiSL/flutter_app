@@ -1,11 +1,15 @@
 import 'dart:io';
 
+import 'package:amap_base/amap_base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app2/aminTest.dart';
 import 'package:flutter_app2/dialogTest.dart';
 import 'package:city_pickers/city_pickers.dart';
 import 'package:flutter_app2/login/Login.dart';
+import 'package:flutter_app2/map/create_map/show_map.screen.dart';
+import 'package:flutter_app2/map/draw_on_map/draw_point.screen.dart';
+import 'package:flutter_app2/map/location/location.screen.dart';
 import 'package:flutter_app2/permissionTest.dart';
 import 'package:flutter_app2/pictureTest.dart';
 import 'package:flutter_app2/shop/index.dart';
@@ -15,7 +19,6 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-
 
 
   @override
@@ -207,6 +210,25 @@ class _MyHomePageState extends State<MyHomePage> {
                     pageBuilder: (BuildContext context, _, __) {
                       //跳转到商城
                       return new Index();
+                    },
+                  ));
+                }
+            ),
+            new RaisedButton(
+
+                child: new Text("地图"
+                ),
+                onPressed: () {
+                  AMap.init('4a90a0f4575ff0513c6f190e41060edc');
+                  Navigator.of(context).push(new PageRouteBuilder(
+                    opaque: false,
+                    pageBuilder: (BuildContext context, _, __) {
+                      //定位
+                      //return LocationDemo();
+                      //地图
+                      return ShowMapScreen();
+                      //跳转到绘制点图标
+                      return new DrawPointScreen();
                     },
                   ));
                 }
