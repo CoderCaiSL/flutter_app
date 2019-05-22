@@ -219,14 +219,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: new Text("地图"
                 ),
                 onPressed: () {
-                  AMap.init('4a90a0f4575ff0513c6f190e41060edc');
+                  //AMap.init('4a90a0f4575ff0513c6f190e41060edc');
                   Navigator.of(context).push(new PageRouteBuilder(
                     opaque: false,
                     pageBuilder: (BuildContext context, _, __) {
                       //定位
                       //return LocationDemo();
                       //地图
-                      return ShowMapScreen();
+                      //return ShowMapScreen();
                       //跳转到绘制点图标
                       return new DrawPointScreen();
                     },
