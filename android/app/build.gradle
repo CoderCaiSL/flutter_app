@@ -68,6 +68,17 @@ android {
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        /*ndk {
+            //选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'x86', 'x86_64', 'mips', 'mips64'// 'arm64-v8a',
+            // 还可以添加
+        }*/
+        //极光推送
+        manifestPlaceholders = [
+                JPUSH_PKGNAME:"com.apemoon.yxgg",
+                JPUSH_APPKEY:"1fffb2ea8b0f07a65d405538",//注：JPush上注册的包名对应的的AppKey。
+                JPUSH_CHANNEL : "developer-default",//暂时填写默认值即可。
+        ]
     }
 
     buildTypes {

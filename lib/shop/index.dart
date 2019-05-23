@@ -20,8 +20,10 @@ class Index extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
-    return new MaterialApp(
-        debugShowCheckedModeBanner: false, home: new IndexMain());
+    //此种写法将以indexmain作为主的方案，返回键将会失效
+    /*return new MaterialApp(
+        debugShowCheckedModeBanner: false, home: new IndexMain());*/
+    return new IndexMain();
   }
 }
 

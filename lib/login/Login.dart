@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_app2/flutter_WidghtUtils/MyContainUtils.dart';
 import 'package:flutter_app2/main/showmain.dart';
 import 'package:flutter_app2/permissionTest.dart';
+import 'package:flutter_app2/shop/index.dart';
 import 'package:flutter_app2/util/SqlUtils.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -130,6 +131,7 @@ class MyLoginWidgetState extends State<MyLoginWidget> {
             pageBuilder: (BuildContext context, _, __) {
               //跳转到第一界面
               return new MyHomePager();
+              //return new Index();
             },
           ));
           Fluttertoast.showToast(

@@ -64,12 +64,16 @@ dependencies:
   #shop
   json_serializable: ^2.0.0
 
+
   #高德地图
   amap_base:
       git:
         url: https://github.com/yohom/amap_base_flutter.git
         ref: android-support-library
         path: base
+
+   #极光推送
+  jpush_flutter: ^0.0.11
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +91,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
+  - assets/file.obj
   - assets/NVpose1.obj
   - assets/bb.obj
   - images/lake.jpg

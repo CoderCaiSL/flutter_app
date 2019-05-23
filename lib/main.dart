@@ -6,10 +6,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_app2/aminTest.dart';
 import 'package:flutter_app2/dialogTest.dart';
 import 'package:city_pickers/city_pickers.dart';
+import 'package:flutter_app2/jiguan/JIGuan.dart';
 import 'package:flutter_app2/login/Login.dart';
 import 'package:flutter_app2/map/create_map/show_map.screen.dart';
 import 'package:flutter_app2/map/draw_on_map/draw_point.screen.dart';
 import 'package:flutter_app2/map/location/location.screen.dart';
+import 'package:flutter_app2/objectD/Show3D.dart';
+import 'package:flutter_app2/objectD/Widght_3D.dart';
 import 'package:flutter_app2/permissionTest.dart';
 import 'package:flutter_app2/pictureTest.dart';
 import 'package:flutter_app2/shop/index.dart';
@@ -205,13 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: new Text("商城"
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(new PageRouteBuilder(
-                    opaque: false,
-                    pageBuilder: (BuildContext context, _, __) {
-                      //跳转到商城
-                      return new Index();
-                    },
-                  ));
+                  Navigator.push(context, new MaterialPageRoute(builder:  (context) => new Index()));
                 }
             ),
             new RaisedButton(
@@ -233,7 +230,38 @@ class _MyHomePageState extends State<MyHomePage> {
                   ));
                 }
             ),
+            new RaisedButton(
+                child: new Text("极光推送集成"
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(new PageRouteBuilder(
+                    opaque: false,
+                    pageBuilder: (BuildContext context, _, __) {
+                      //跳转到极光推送演示
+                      return new ShowJiGuan();
+                    },
+                  ));
+                }
+            ),
+            new RaisedButton(
 
+                child: new Text("3D效果图"
+                ),
+                onPressed: () {
+                  //AMap.init('4a90a0f4575ff0513c6f190e41060edc');
+                  Navigator.of(context).push(new PageRouteBuilder(
+                    opaque: false,
+                    pageBuilder: (BuildContext context, _, __) {
+                      //定位
+                      //return LocationDemo();
+                      //地图
+                      //return ShowMapScreen();
+                      //跳转到绘制点图标
+                      return Show3D();
+                    },
+                  ));
+                }
+            ),
           ],
         ),
       ),
