@@ -2,10 +2,13 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
+        maven { url "http://repository.ow2.org/nexus/content/repositories/releases/" }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:4.1.0'
+
     }
 }
 
@@ -13,6 +16,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
+
+        maven { url "http://repository.ow2.org/nexus/content/repositories/releases/" }
     }
 }
 
